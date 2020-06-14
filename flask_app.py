@@ -8,7 +8,7 @@ from selenium import webdriver
 from apscheduler.schedulers.blocking import BlockingScheduler
 import config
 
-app=Flask(__name__)
+app = Flask(__name__)
 
 
 def send_sms(message):
@@ -73,10 +73,10 @@ def timed_job():
     print('This job is run every ten seconds.')
     prod_detail()
 
-sched.start()
+# sched.start()
 
 if __name__ == '__main__':
-    # Bind to PORT if defined, otherwise default to 5000.
+    sched.start()
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
 

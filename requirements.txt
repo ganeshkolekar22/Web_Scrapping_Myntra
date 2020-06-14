@@ -18,3 +18,4 @@ Flask-Cors==3.0.8
 selenium==3.141.0
 apscheduler==3.5.0
 config
+gunicorn==20.0.4
