@@ -1,1 +1,1 @@
-worker: gunicorn app:app
+orker: python flask_app.py

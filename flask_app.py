@@ -8,7 +8,7 @@ from selenium import webdriver
 from apscheduler.schedulers.blocking import BlockingScheduler
 import config
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 
 def send_sms(message):
@@ -75,12 +75,8 @@ def timed_job():
 
 sched.start()
 
-@app.route('/', methods=['GET'])
-def signup():
-    print('********************called**********************')
-
 if __name__ == '__main__':
     sched.start()
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    # port = int(os.environ.get('PORT', 5000))
+    # app.run(host='0.0.0.0', port=port, debug=True)
 
