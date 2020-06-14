@@ -73,10 +73,10 @@ def timed_job():
     print('This job is run every ten seconds.')
     prod_detail()
 
-# sched.start()
+sched.start()
 
-if __name__ == '__main__':
-    sched.start()
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+# if __name__ == '__main__':
+#     sched.start()
+#     port = int(os.environ.get('PORT', 5000))
+#     app.run(host='0.0.0.0', port=port, debug=True)
 
