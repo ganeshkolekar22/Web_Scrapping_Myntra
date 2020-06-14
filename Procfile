@@ -1,1 +1,1 @@
-worker: python flask_app.py
+worker: python demo.py
