@@ -75,8 +75,12 @@ def timed_job():
 
 sched.start()
 
-# if __name__ == '__main__':
-#     sched.start()
-#     port = int(os.environ.get('PORT', 5000))
-#     app.run(host='0.0.0.0', port=port, debug=True)
+@app.route('/', methods=['GET'])
+def signup():
+    print('********************called**********************')
+
+if __name__ == '__main__':
+    sched.start()
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
 
