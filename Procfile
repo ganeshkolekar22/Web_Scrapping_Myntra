@@ -1,1 +1,1 @@
-web: python app.py   --master --processes 4 --threads 2
+web: gunicorn -b 0.0.0.0:$PORT app:app
