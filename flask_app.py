@@ -1,0 +1,75 @@
+import os
+from flask import Flask,render_template,request
+from flask_cors import CORS, cross_origin
+import requests
+from bs4 import BeautifulSoup as bs
+from urllib.request import urlopen as uReq
+from selenium import webdriver
+from apscheduler.schedulers.blocking import BlockingScheduler
+import config
+
+
+def send_sms(message):
+    print(message)
+    url = 'https://www.fast2sms.com/dev/bulk'
+    payload = config.payload.format(message)
+    headers = {
+    'authorization': config.authorization,
+    'Content-Type': "application/x-www-form-urlencoded",
+    'Cache-Control': "no-cache",
+    }
+    response = requests.request("POST", url, data=payload, headers=headers)
+    print(response.text)
+
+def prod_detail():
+        # driver
+        chrome = webdriver.ChromeOptions()
+        driver = webdriver.Chrome(chrome_options=chrome)
+
+        #make fake browser agent
+        url = 'https://www.myntra.com/invictus-jacket'
+        driver.get(url)
+        driver.implicitly_wait(30)
+        source = driver.page_source
+        html = bs(source, 'html.parser')
+
+        #perticular product link
+        link = 'https://www.myntra.com/jackets/invictus/invictus-men-off-white-solid-bomber/5497974/buy'
+        driver.get(link)
+        pSource = driver.page_source
+        html = bs(pSource, 'html.parser')
+        all_prod = html.find_all('div', {'class':'pdp-price-info'})
+        name = all_prod[0].find_all('h1')
+        prod_name = name[1].text
+        print(prod_name)
+
+        #price
+        price = all_prod[0].find_all('span')
+        pr = price[0].text.split(' ')
+        print(pr)
+
+        #size
+        size = html.find_all('button', {'class' : 'size-buttons-size-button-disabled size-buttons-size-button-default'})
+        size1 = size[1].p.text
+        print(size1)
+
+        if (size1 == 'M'):
+                print('Product is now available')
+                message = ' Hello Ganesh The Product ' + prod_name + ' of size (M). Price Rs:' + pr[1] + ' is in Stock now please visit' + link
+                send_sms(message)
+        driver.close()
+
+
+sched = BlockingScheduler()
+
+@sched.scheduled_job('interval', minutes=0.166667)
+def timed_job():
+    print('This job is run every three minutes.')
+    prod_detail()
+
+sched.start()
+
+
+# if __name__=='__main__':
+#         sched.start()
+
