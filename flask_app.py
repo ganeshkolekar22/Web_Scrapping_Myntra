@@ -14,7 +14,7 @@ app=Flask(__name__)
 def send_sms(message):
     print(message)
     url = 'https://www.fast2sms.com/dev/bulk'
-    payload = config.payload.format(message)
+    payload = "sender_id=FSTSMS&message={0}&language=english&route=p&numbers=9130050005".format(message)
     headers = {
     'authorization': config.authorization,
     'Content-Type': "application/x-www-form-urlencoded",
