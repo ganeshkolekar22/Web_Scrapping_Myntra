@@ -17,3 +17,4 @@ wincertstore==0.2
 Flask-Cors==3.0.8
 selenium==3.141.0
 apscheduler==3.5.0
+config
