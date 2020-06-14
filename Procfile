@@ -1,1 +1,1 @@
-web: python flask_app.py   --master --processes 4 --threads 2
+worker: python flask_app.py   --master --processes 4 --threads 2
